@@ -2,6 +2,15 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from .database import Base
 
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key = True, index = True)
+    username = Column(String(150), unique = True, nullable = False)
+    email = Column(String(150))
+    password = Column(String, nullable = False)
+
+    
 class Author(Base):
     __tablename__ = "authors"
 
@@ -18,4 +27,4 @@ class Book(Base):
     pages = Column(Integer, default=10)
 
     author_id = Column(Integer, ForeignKey('authors.id'))
-    
+    author = relationship("Author")
